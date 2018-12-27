@@ -60,8 +60,16 @@ app.post('/register-and-broadcast-node', function (req, res) {
   }); 
 
   Promise.all(regNodesPromises).then(data => {
-    
-  })
+    const bulkRegisterOptions = {
+      uri: newNodeUrl + '/register-nodes-bulk',
+      method: 'POST',
+      body: {allNetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl]},
+      json: true
+    };
+    return rp(bulkRegisterOptions);
+  }).then(data => {
+    res.json({note: 'New Node registered with the network successfully'})
+  });
 });
 
 app.post('/register-node', function (req, res) {
