@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
 const uuid = require('uuid/v1');
+const rp = require('request-promise');
 
 const bitcoin = new Blockchain();
 const nodeAddress = uuid().split('-').join('');
@@ -45,6 +46,22 @@ app.get('/mine', function(req, res) {
 
 app.post('/register-and-broadcast-node', function (req, res) {
   const newNodeUrl = req.body.newNodeUrl;
+  if(bitcoin.networkNodes.indexOf(newNodeUrl) === -1) bitcoin.networkNodes.push(newNodeUrl);
+
+  const regNodesPromises = [];
+  bitcoin.networkNodes.forEach(networkNodeUrl => {
+    const requestOptions = {
+      uri: networkNodeUrl + '/register-node',
+      method: 'POST',
+      body: {newNodeUrl:newNodeUrl},
+      json: true
+    };
+    regNodesPromises.push(rp(requestOptions));
+  }); 
+
+  Promise.all(regNodesPromises).then(data => {
+    
+  })
 });
 
 app.post('/register-node', function (req, res) {
