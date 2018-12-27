@@ -37,8 +37,8 @@ Blockchain.prototype.createNewTransaction = function(amount, sender, recipient) 
   return this.getLastBlock()['index'] + 1;
 };
 
-Blockchain.prototype.hashBlock = function(blockdata) {
-
+Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
+  const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData)
 };
 
 
