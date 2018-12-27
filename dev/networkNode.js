@@ -84,9 +84,12 @@ app.post('/register-node', function (req, res) {
 app.post('/register-nodes-bulk', function (req, res) {
   const allNetworkNodes = req.body.allNetworkNodes;
   allNetworkNodes.forEach(networkNodeUrl => {
-    bitcoin.networkNodes.push(networkNodeUrl); 
+    const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(networkNodeUrl) === -1;
+    const notCurrentNode = bitcoin.currentNodeUrl !== networkNodeUrl;
+    if(nodeNotAlreadyPresent && notCurrentNode) bitcoin.networkNodes.push(networkNodeUrl);
   });
 
+  res.json({note: 'Bulk registration successful'})
 });
 
 app.listen(port, function() {
