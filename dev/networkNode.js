@@ -7,6 +7,8 @@ const uuid = require('uuid/v1');
 const bitcoin = new Blockchain();
 const nodeAddress = uuid().split('-').join('');
 
+const port = process.argv[2]; 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -41,7 +43,6 @@ app.get('/mine', function(req, res) {
   bitcoin.createNewTransaction(12.5, "00", nodeAddress);
 });
 
-app.listen(3000, function(){
-    console.log('listening on port 3000...'); 
-
+app.listen(port, function() {
+    console.log(`Listening on port ${port}...`);
 });
