@@ -23,7 +23,7 @@ app.post('/transaction', function(req, res) {
 });
 
 app.get('/mine', function(req, res) {
-
+    const newBlock = bitcoin.createNewBlock();
 });
 
 app.listen(3000, function(){
