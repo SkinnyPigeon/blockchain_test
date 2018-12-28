@@ -19,9 +19,8 @@ app.get('/blockchain', function(req, res) {
 
 app.post('/transaction', function(req, res) {
   const newTransaction = req.body;
-  bitcoin.addTransactionToPendingTransactions(newTransaction);
   const blockIndex = bitcoin.addTransactionToPendingTransactions(newTransaction);
-  res.json({ note: 'Transaction will be added in block ${blockIndex}.'});
+  res.json({ note: `Transaction will be added in block ${blockIndex}.`});
 });
 
 app.post('/transaction/broadcast', function(req, res){
