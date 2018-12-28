@@ -10,7 +10,6 @@ function Blockchain () {
   this.createNewBlock(100, '0', '0');
 };
 
-
 Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
   const newBlock = {
     index: this.chain.length + 1,
