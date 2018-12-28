@@ -27,7 +27,7 @@ app.post('/transaction/broadcast', function(req, res){
  const newTransaction = bitcoin.createNewTransaction(req.body.amount, req.body.sender, req.body.recipient);
  bitcoin.addTransactionToPendingTransactions (newTransaction);
  const requestPromises = []; 
- bitcoin.netowrkNodes.forEach(networkNodeUrl => {
+ bitcoin.networkNodes.forEach(networkNodeUrl => {
     const requestOptions = {
     uri: networkNodeUrl + '/transaction',
         method: 'POST',
