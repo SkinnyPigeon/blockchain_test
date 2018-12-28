@@ -58,8 +58,25 @@ app.get('/mine', function(req, res) {
   bitcoin.createNewTransaction(12.5, "00", nodeAddress);
 });
 
-app.post('/receive-new-block', function(req, res) {
-};
+app.post('/receive-new-block', function(req, res){
+  const newBlock = req.body.newBlock;
+  const lastBlock = bitcoin.getLastBlock();
+  const correctHash = lastBlock.hash === newBlock.previousBlockHash;
+  const correctIndex = lastBlock['index'] + 1 === newBlock['index'];
+  if (correctHash && correctIndex) {
+    bitcoin.chain.push(newBlock);
+    bitcoin.pendingTransaction = [];
+    res.json({
+        note: 'New block received and accepted',
+        newBlock: newBlock
+    })
+  } else {
+    res.json({
+        note:'New block rejected',
+        newBlock: newBlock
+    });  
+  };
+});
 
 app.post('/register-and-broadcast-node', function (req, res) {
   const newNodeUrl = req.body.newNodeUrl;
