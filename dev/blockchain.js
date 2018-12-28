@@ -107,6 +107,6 @@ Blockchain.prototype.getTransaction = function(transactionId) {
     transaction: correctTransaction,
     block: correctBlock 
   };
-});
+};
 
 module.exports = Blockchain;
