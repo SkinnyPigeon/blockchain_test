@@ -1,5 +1,5 @@
 const Blockchain = require('./blockchain');
-const bitcoin = new Blockchain();
+const pidgeCoin = new Blockchain();
 
 const bc1 = 
   {
@@ -60,4 +60,4 @@ const bc1 =
   "networkNodes": []
 }
 
-console.log('VALID:' , bitcoin.chainIsValid(bc1.chain));
+console.log('VALID:' , pidgeCoin.chainIsValid(bc1.chain));
