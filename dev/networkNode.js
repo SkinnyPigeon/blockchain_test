@@ -94,7 +94,7 @@ app.post('/receive-new-block', function(req, res){
   const correctIndex = lastBlock['index'] + 1 === newBlock['index'];
   if (correctHash && correctIndex) {
     bitcoin.chain.push(newBlock);
-    bitcoin.pendingTransaction = [];
+    bitcoin.pendingTransactions = [];
     res.json({
         note: 'New block received and accepted',
         newBlock: newBlock
